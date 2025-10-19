@@ -1,5 +1,5 @@
 export type FormData = {
-  userName: string;
-  email: string;
-  age: number;
+  userName?: string;
+  email?: string;
+  age?: number;
 };

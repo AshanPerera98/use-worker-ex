@@ -11,9 +11,11 @@ export const validation = (data: FormData): Record<string, string> => {
   if (!data.userName || data.userName.length < 3)
     errors.userName = "Username must be at least 3 characters";
 
-  if (!/^\S+@\S+$/.test(data.email)) errors.email = "Email format is invalid";
+  if (!data.email || !/^\S+@\S+$/.test(data.email))
+    errors.email = "Email format is invalid";
 
-  if (data.age <= 0) errors.age = "Must be valid age";
+  const age = Number(data.age);
+  if (isNaN(age) || age <= 0) errors.age = "Must be valid age";
 
   return errors;
 };
