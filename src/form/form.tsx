@@ -1,33 +1,39 @@
-import type { FC } from "react";
+import { type FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { FormData } from "./type";
 
 import "./form.css";
 
+import { validation } from "./validation";
+
 const SampleForm: FC = () => {
   const {
     register,
-    handleSubmit,
+    watch,
+    setError,
+    clearErrors,
     formState: { errors },
-  } = useForm<FormData>({ mode: "onBlur" });
+  } = useForm<FormData>({ mode: "onChange" });
 
-  const onSubmit = (data: FormData) => {
-    console.log("Submitted:", data);
-    alert("Simple form submitted! Check console.");
-  };
+  const values = watch();
+
+  useEffect(() => {
+    const validationErrors = validation(values);
+
+    clearErrors();
+
+    Object.entries(validationErrors).forEach(([key, message]) => {
+      setError(key as keyof FormData, { type: "manual", message });
+    });
+  }, [values, clearErrors, setError]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 480 }}>
+    <form style={{ maxWidth: 480 }}>
       <h2>Simple Form</h2>
 
       <div className="form-group">
         <label>Username</label>
-        <input
-          {...register("userName", {
-            required: "Username is required",
-            minLength: { value: 3, message: "Minimum 3 characters" },
-          })}
-        />
+        <input {...register("userName")} />
         {errors.userName && (
           <span className="error">{errors.userName.message}</span>
         )}
@@ -35,24 +41,13 @@ const SampleForm: FC = () => {
 
       <div className="form-group">
         <label>Email</label>
-        <input
-          {...register("email", {
-            required: "Email required",
-            pattern: { value: /^\S+@\S+$/i, message: "Invalid email" },
-          })}
-        />
+        <input {...register("email")} />
         {errors.email && <span className="error">{errors.email.message}</span>}
       </div>
 
       <div className="form-group">
         <label>Age</label>
-        <input
-          type="number"
-          {...register("age", {
-            required: "Age required",
-            validate: (v) => (v <= 0 ? "Must be valid age" : true),
-          })}
-        />
+        <input {...register("age")} />
         {errors.age && <span className="error">{errors.age.message}</span>}
       </div>
 
