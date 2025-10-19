@@ -1,7 +1,9 @@
+import SampleForm from "./form/form";
+
 const App = () => {
   return (
     <>
-      <h1>Main Page</h1>
+      <SampleForm />
     </>
   );
 };

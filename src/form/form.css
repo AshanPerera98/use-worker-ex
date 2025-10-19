@@ -1,0 +1,16 @@
+form {
+  border: 1px solid #ccc !important;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+
+  .error {
+    color: red;
+    font-size: small;
+    line-height: 0%;
+  }
+}
