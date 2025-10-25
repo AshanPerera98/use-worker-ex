@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@koale/useworker": "^4.1.2",
+    "@types/stats.js": "^0.17.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.65.0",
-    "react-tabs": "^6.1.0"
+    "react-tabs": "^6.1.0",
+    "stats.js": "^0.17.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

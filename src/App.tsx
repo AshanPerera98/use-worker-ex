@@ -1,9 +1,11 @@
 import SampleForm from "./form/form";
 import AdvanceForm from "./form/advanceForm";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import useFpsMonitor from "./hooks/useFpsMonitor";
 import "react-tabs/style/react-tabs.css";
 
 const App = () => {
+  useFpsMonitor();
   return (
     <>
       <Tabs>
